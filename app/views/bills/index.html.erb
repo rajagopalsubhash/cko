@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bills</h1>
+
+<% if @accountSuccess == true%>
+<table border="solid 0.5px;">
+  <tr>
+    <th>Name</th>
+    <th>Account Number</th>
+    <th>Balance</th>
+  </tr>
+  <tr>
+    <td> <%=@accountDetails["basicInfo"]["name"]%> </td>
+    <td><%=@accountDetails["basicInfo"]["accountNumber"]%></td>
+    <td><%=@accountDetails["metrics"]["balance"]%></td>
+  </tr>
+</table>
+ <!-- <%#= @accountDetails%>-->
+  <%else %>
+  <p>No Account info</p>
+  <%end %>
+
+<p><%= link_to "Make Payment", {:action => 'pay' }%></p>
+
+
+
+
+<!--<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <%# @bills.each do |bill| %>
+      <tr>
+        <td><%#= link_to 'Show', bill %></td>
+        <td><%#= link_to 'Edit', edit_bill_path(bill) %></td>
+        <td><%#= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <%# end %>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Bill', new_bill_path %>-->
+
+

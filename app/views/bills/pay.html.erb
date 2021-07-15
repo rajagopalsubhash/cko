@@ -1,0 +1,83 @@
+<% if @paymentResponse["approved"].nil?%>
+  <p>Pay your bills!</p>
+  <%else%>
+  <div>Payment Status:</div>
+  <div><%=@paymentResponse["response_summary"]%></div>
+  <div><%=@paymentResponse["error_type"]%></div>
+  <div><%=@paymentResponse["error_codes"]%></div>
+    <%if @invoicePaid == true %>
+    <div> USD <%=@invoicePaidAmount %> is successfully paid towards your Invoice/Account Balance!</div>
+    <%end %>
+<%end %>
+
+<p><%= link_to "Dashboard", {:action => 'index' }%></p>
+
+<table>
+
+<%= form_tag("/bill/pay", :method => "post") do %>
+    <tr>
+      <td>
+        <%=label_tag(:type, "Type:") %>
+        <%=text_field_tag(:type, 'card', readonly: true) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <%=label_tag(:number, "number:") %>
+        <%=text_field_tag(:number, nil, minlength: 16 ,maxlength: 16, value: '5199992312641465', required: true) %>
+    </td>
+    </tr>
+    <tr>
+      <td>
+        <%=label_tag(:expiry_month, "expiry_month:") %>
+        <%=text_field_tag(:expiry_month, nil, minlength: 1, maxlength: 2, value: '12', required: true) %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%=label_tag(:expiry_year, "expiry_year:") %>
+        <%=text_field_tag(:expiry_year, nil, minlength: 4, maxlength: 4, value: '2027', required: true) %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%=label_tag(:name, "name:") %>
+        <%=text_field_tag(:name, nil, minlength: 2, maxlength: 22, value: 'Jane Doe', required: true) %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%=label_tag(:cvv, "cvv:") %>
+        <%=text_field_tag(:cvv, nil, minlength: 3, maxlength: 3, value: '010', required: true) %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%=label_tag(:amount, "amount:") %>
+        <%=text_field_tag(:amount, nil, maxlength: 10, required: true) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%=label_tag(:currency, "currency:") %>
+        <%=text_field_tag(:currency, nil, maxlength: 4, value: 'USD', readonly: true) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%=label_tag(:reference, "reference:") %>
+        <%=text_field_tag(:reference, nil, maxlength: 20, value: 'ord-001') %>
+      </td>
+    </tr>
+
+      <tr>
+        <td>
+          <%= submit_tag("PAY")%>
+        </td>
+      </tr>
+<% end %>
+</table>
